@@ -156,7 +156,9 @@ e standard lisp, a single ; does not denote a command, but instead the
 
 (defcfg
   ;; For Linux
-  input (device-file  "/dev/input/by-id/usb-Razer_Razer_Ornata_Chroma-event-kbd");;
+  ;;input (device-file  "/dev/input/by-id/usb-Razer_Razer_Ornata_Chroma-event-kbd");;
+
+    input (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
   output (uinput-sink "My KMonad output"
     ;; To understand the importance of the following line, see the section on
     ;; Compose-key sequences at the near-bottom of this file.
@@ -231,7 +233,7 @@ e standard lisp, a single ; does not denote a command, but instead the
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '    ret
   lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet cmp  rctl
+  lctl lmet lalt           spc            ralt a cmp  rctl
 )
 
 
@@ -309,14 +311,19 @@ e standard lisp, a single ; does not denote a command, but instead the
   KMonad config will be the layer that is active when KMonad starts up.
 
   -------------------------------------------------------------------------- |#
-
+(defalias
+  spc (tap-hold-next-release 200 spc lsft)
+  amod (tap-hold-next-release 200 a lmeta)
+  sctlr (tap-hold-next-release 200 s lctl)
+  dalt (tap-hold-next-release 200 d lalt)
+  )
 
 (deflayer qwerty
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  esc a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmeta lalt           spc            @num rmet @sym @tst
+  bspc @amod    @sctlr    @dalt    f    g    h    j    k    l    ;    '    ret
+  esc z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmeta lalt           @spc            @num rmet @sym @tst
 )
 
 
