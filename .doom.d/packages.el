@@ -26,20 +26,12 @@
 ;; with the `:disable' property:
 ;(package! builtin-package :disable t)
 (package! cuda-mode)
+(package! undo-tree)
 (package! cmake-mode)
-(package! multiple-cursors)
-(package! ripgrep)
-(package! projectile-ripgrep)
-(package! lsp-mode)
+;; (package! multiple-cursors)
+;; (package! lsp-mode)
 (package! smooth-scrolling)
-(package! image-dired+)
-(package! impatient-mode)
-(package! org-bullets)
-(package! elpy)
-(package! kbd-mode
-  :recipe (:host github :repo "slotThe/kbd-mode"
-           :files ("lisp/kbd-mode.el")))
-;; You can override the recipe of a built in package without having to specify
+; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe
 ;; from Doom or MELPA/ELPA/Emacsmirror:
 ;(package! builtin-package :recipe (:nonrecursive t))
@@ -61,3 +53,6 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+;(package! clockify
+ ;p  :recipe (:host github :repo "keremyldrr/emacs-clockify"
+   ; s         :files ("clockify.el")))
