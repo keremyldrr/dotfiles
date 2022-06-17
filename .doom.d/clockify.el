@@ -105,7 +105,7 @@
          ))
     (clockify-api "POST" (concat "/workspaces/" clockify-workspace "/time-entries")
                   (list
-                    (cons "start" (shell-command-to-string "echo -n $(date  +%Y-%m-%dT%TZ)" ))
+                    (cons "start" (shell-command-to-string "echo -n (date -d '- 1 hour' +%Y-%m-%dT%TZ)" ))
                 ;;    (cons "end" end-utc)
                   (cons "projectId" (car (split-string selected-project "\s"))))))
 
@@ -113,7 +113,7 @@
         (interactive)
       (clockify-api "PATCH" (concat "/workspaces/" clockify-workspace "/user/" clockify-user-id "/time-entries")
 ;                    (cons "start" start-utc)
-                    (list (cons  "end"  (shell-command-to-string "echo -n $(date  +%Y-%m-%dT%TZ)" ))))
+                    (list (cons  "end"  (shell-command-to-string "echo -n (date -d '- 1 hour' +%Y-%m-%dT%TZ)" ))))
 
                   )
 

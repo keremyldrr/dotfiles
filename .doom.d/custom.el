@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(org-agenda-files '("~/Documents/Personal/agenda.org"))
  '(package-selected-packages
-   '(vc-msg git-lens exwm latex-preview-pane smooth-scroll smooth-scrolling projectile-ripgrep ripgrep multiple-cursors cmake-ide cmake-project cmake-mode cuda-mode tramp-auto-auth))
+   '(org-bullets pdf-tools vc-msg git-lens exwm latex-preview-pane smooth-scroll smooth-scrolling projectile-ripgrep ripgrep multiple-cursors cmake-ide cmake-project cmake-mode cuda-mode tramp-auto-auth))
  '(tramp-copy-size-limit 1000000)
  '(tramp-default-method "scp")
  '(tramp-inline-compress-start-size 100000))

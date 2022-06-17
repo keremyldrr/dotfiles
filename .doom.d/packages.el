@@ -28,9 +28,16 @@
 (package! cuda-mode)
 (package! undo-tree)
 (package! cmake-mode)
+(package! org-download)
+(package! org-roam)
+(package! dash)
+(package! s)
+(package! f)
+(package! emacsql)
+(package! emacsql-sqlite)
+(package! magit-section)
 ;; (package! multiple-cursors)
 ;; (package! lsp-mode)
-(package! smooth-scrolling)
 ; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe
 ;; from Doom or MELPA/ELPA/Emacsmirror:
