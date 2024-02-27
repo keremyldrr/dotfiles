@@ -14,7 +14,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8 
+font pango:monospace 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -41,7 +41,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-Bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -56,26 +56,33 @@ bindsym $mod+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-#bindsym $mod+d exec rofi -show drun -terminal konsole -columns 3 -rows 3 -show-icons -sidebar-mode -font "Source Code Variable 14"
-bindsym $mod+d exec zsh /home/keremy/.config/rofi/launchers-git/launcher.sh
-bindsym $mod+p exec bash /home/keremy/.config/rofi/power/powermenu.sh
+# bindsym Mod1+Tab exec rofi -show drun -terminal kitty -columns 3 -rows 3 -show-icons -sidebar-mode -font "Source Code Variable 14"
+bindsym $mod+d exec rofi -show drun -terminal kitty -columns 3 -rows 3 -show-icons -sidebar-mode -font "Source Code Variable 14" -theme ~/.config/polybar/docky/scripts/rofi/launcher.rasi
+
+bindsym $mod+p exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -theme ~/.config/polybar/docky/scripts/rofi/launcher.rasi
+
+bindsym $mod+shift+p exec rofi-screenshot
+
+# bindsym $mod+d exec rofi -show drun --terminal kitty --show-i
+#bindsym $mod+p exec bash /home/keremy/.config/rofi/power/powermenu.sh
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
+
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -84,8 +91,11 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 bindsym $mod+m exec i3-msg move workspace to output right #move ws to right
 bindsym $mod+n exec i3-msg move workspace to output left #move ws to left
+bindsym Control + $mod+m exec i3-msg move workspace to output up #move ws to right
+bindsym Control + $mod+n exec i3-msg move workspace to output down  #move ws to left
+
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+Control+h split h
 
 # split in vertical orientation
 bindsym $mod+v split v
@@ -96,7 +106,7 @@ bindsym $mod+f fullscreen toggle
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+# bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+space floating toggle
@@ -104,25 +114,29 @@ bindsym $mod+space floating toggle
 # change focus between tiling / floating windows
 bindsym $mod+Shift+space focus mode_toggle
 
+
+bindsym $mod+e exec emacsclient -c -a "emacs"
 # focus the parent container
 bindsym $mod+a focus parent
 
 # focus the child container
 bindsym $mod+c focus child
-
+bindsym $mod + b exec brave
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "1: IDP"
-set $ws2 "2: HiWi"
-set $ws3 "3: BotBazaar"
-set $ws4 "4: NACVML"
-set $ws5 "5: Sports"
-set $ws6 "6: EADS"
-set $ws7 "7: 3DSMC"
+set $ws1 "1: Main"
+set $ws2 "2: Browse"
+set $ws3 "3: Social"
+set $ws4 "4: Journal"
+set $ws5 "5: Game"
+set $ws6 "6: Other"
+set $ws7 "7: Other"
 set $ws8 "8: Other"
-set $ws9 "9: Other"
+set $ws9 "9: Drum"
 set $ws10 "10: Music"
 
+for_window[class="Steam"] floating enable
+for_window[class="Steam" title="^Steam$"] floating disable
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -134,7 +148,7 @@ bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
 bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
-
+exec --no-startup-id /usr/bin/picom  -b
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number $ws1
 bindsym $mod+Shift+2 move container to workspace number $ws2
@@ -149,37 +163,38 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym Control+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+shift+f fullscreen toggle global
 
 # resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+# mode "resize" {
+#         # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+#         # Pressing left will shrink the window’s width.
+#         # Pressing right will grow the window’s width.
+#         # Pressing up will shrink the window’s height.
+#         # Pressing down will grow the window’s height.
+#         bindsym j resize shrink width 10 px or 10 ppt
+#         bindsym k resize grow height 10 px or 10 ppt
+#         bindsym l resize shrink height 10 px or 10 ppt
+#         bindsym semicolon resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+#         # same bindings, but for the arrow keys
+#         bindsym Left resize shrink width 10 px or 10 ppt
+#         bindsym Down resize grow height 10 px or 10 ppt
+#         bindsym Up resize shrink height 10 px or 10 ppt
+#         bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
+#         # back to normal: Enter or Escape or $mod+r
+#         bindsym Return mode "default"
+#         bindsym Escape mode "default"
+#         bindsym $mod+r mode "default"
+# }
 
-bindsym $mod+r mode "resize"
+# bindsym $mod+r mode "resize"
 
 bindsym Control+$mod+Right workspace next_on_output
 bindsym Control+$mod+Left workspace prev_on_output
@@ -187,78 +202,38 @@ bindsym Control+$mod+Left workspace prev_on_output
 # Start i3bar to display a workspace bar (plus the system information i3status
 
 # i3status bar
-#
-#bar {
+
+# bar {
 #        position top
-#	tray_output none
-#	font pango:DejaVu Sans Mono 10
+# # tray_output none
+# font pango:DejaVu Sans Mono 10
 
-#        colors {
-#        background #342E52 #   #2f343f
-#        statusline #2f343f
-#        separator #4b5262
-#        focused_workspace       #2f343f #88c0d0 #2f343f
-#        active_workspace        #2f343f #2f343f #d8dee8
-#        inactive_workspace      #2f343f #2f343f #d8dee8
-#        urgent_workspacei       #2f343f #ebcb8b #2f343f
-#        }
-#        status_command i3status
-        #status_command i3status | /home/danig/Github/i3status-spotify/target/release/i3status-spotify
-#}
+#  colors {
+#     background #000000
+#     statusline #FFFFFF
+#     separator  #666666
+#     focused_workspace  #4C7899 #285577 #FFFFFF
+#     active_workspace   #333333 #222222 #FFFFFF
+#     inactive_workspace #333333 #222222 #888888
+#     urgent_workspace   #2F343A #900000 #FFFFFF
+#     binding_mode       #2F343A #900000 #FFFFFF
+# }
+#         status_command "i3status -c /home/kerem/.config/i3/status_config"
+#  }
 
-# kill Plasma Desktop
+bindsym Control+$mod+l "exec /usr/local/bin/lock_and_blur.sh"
+# exec compton  -b --config /etc/xdg/compton.conf.example
+exec /usr/bin/picom  -b  -experimenital-backends --config /etc/xdg/picom.conf & > "/tmp/out.log"
+exec autorandr -l home
+# exec "nitrogen --restore >> out.log"
+# #set gaps
 
-exec --no-startup-id wmctrl -c Plasma
+# exec "echo YO >> /tmp/out.log"
+gaps inner 3
+gaps outer 3
+gaps horizontal 3
 
-for_window [title="Desktop — Plasma"] kill; floating enable
-
-
-#for_window [class="^.*"] border pixel 1
-#new_window 1pixel
-# fix Plasma fly-outs
-
-#for_window [class="plasmashell"] floating enable
-
-#for_window [class="Plasma"] floating enable
-
-#for_window [title="plasma-desktop"] floating enable
-
-#for_window [class="krunner"] floating enable
-
-#for_window [class="Kmix"] floating enable
-
-#for_window [class="Klipper"] floating enable
-
-#for_window [class="Plasmoidviewer"] floating enable
-
-
-#for_window [class="yakuake"] floating enable
-
-
-
-# fix notification appearing on the second monitor
-
-#assign [class="plasmashell" window_type="notification"] output primary
-
-
-
-# fix notification focusing
-
-
-#no_focus [class="plasmashell"] 
-
-
-exec compton  -b --config /etc/xdg/compton.conf.example
-#picom  -b --experimental-backends --config /etc/xdg/picom.conf &
-exec nitrogen --reload
-bindsym Control + $mod+l exec zsh /home/keremy/lock.sh
-#set gaps
-
-gaps inner 0
-gaps outer 0
-gaps horizontal 0
-
-gaps vertical 0
+gaps vertical 3
 
 gaps top 7
 
@@ -271,13 +246,28 @@ gaps left 7
 
 # set desktop background with custom effect
 
-exec_always --no-startup-id exec zsh /home/keremy/.config/polybar/launch_bar.sh
-bindsym Print exec spectacle
+# bindsym Print exec spectacle
 
 exec "setxkbmap  -layout gb,tr"
-exec clipit -d
-
-exec "export VISUAL=vim"
+# exec clipit -d
+exec greenclip daemon &
+# exec nm-applet &
+exec blueman-applet &
+exec nitrogen --restore
+exec "export VISUAL=emacsclient -c -a 'emacs' "
 exec crond
-exec dunst  -config .config/dunst/.dunstrc &
-exec redshift &
+exec dunst  &
+exec redshift -l $(curl -s "https://location.services.mozilla.com/v1/geolocate?key=geoclue" | jq -r '"\(.location.lat):\(.location.lng)"')
+
+exec bash -c "synclient VertEdgeScroll=1 TapButton1=1 TapButton2=3 TapButton3=2"
+exec bash -c "emacs --daemon"
+# exec 'xmodmap -e "clear lock"' #disable caps lock switch
+# exec 'xmodmap -e "keysym Caps_Lock = Escape"' #set caps_lock as escape
+exec xmodmap -e "clear lock"
+exec xmodmap -e "keysym Caps_Lock = Escape"
+exec flameshot gui
+# set caps_lock as escape
+
+exec /home/kerem/.config/polybar/docky/launch.sh
+
+exec syncthing &
